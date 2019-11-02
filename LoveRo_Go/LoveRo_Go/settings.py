@@ -1,3 +1,4 @@
+
 """
 Django settings for LoveRo_Go project.
 
@@ -25,11 +26,21 @@ SECRET_KEY = '=s#8756&(-33l7zre8@&1bq$)3lkrm$_&2c3dorv(4mr)@hq5o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+# django-allauth settings
+ACCOUNT_ALLOW_REGISTRATION = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+# ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = False
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_ADAPTER = 'connectedwe.users.adapters.AccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'connectedwe.users.adapters.SocialAccountAdapter'
+
+# AUTH_USER_MODEL='customuser.CustomUser'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,21 +48,46 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
     'corsheaders',
+
+    'drf_yasg',       
+    
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
     
     'api',
 ]
 
+SITE_ID = 1
+
+REST_USE_JWT = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ORIGIN_WHITELIST = (
-    'localhost:3000/'
+    'http://localhost:3000',
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
 
 MIDDLEWARE = [
    
     # cros origin 
-        'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 
     # original settings
@@ -118,9 +154,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -133,3 +169,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
