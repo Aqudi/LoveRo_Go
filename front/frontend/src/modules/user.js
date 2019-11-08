@@ -6,8 +6,7 @@ import createRequestSaga, {
 } from '../lib/createRequestSaga';
 
 const TEMP_SET_USER = 'user/TEMP_SET_USER'; //새로고침 이후 임시 로그인 처리
-
-//회원정보 확인
+// 회원정보 확인
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createRequestActionTypes(
   'user/CHECK',
 );
@@ -23,7 +22,7 @@ const checkSaga = createRequestSaga(CHECK, authAPI.check);
 function checkFailureSaga() {
   //로그인 검증 실패시 정보 초기화
   try {
-    localStorage.removeItem('user'); //localStorage에서 uer제거
+    localStorage.removeItem('user'); //localStorage에서 user제거
   } catch (e) {
     console.log('localStorage is not working');
   }

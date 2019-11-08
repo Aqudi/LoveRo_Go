@@ -1,4 +1,3 @@
-
 """
 Django settings for LoveRo_Go project.
 
@@ -21,24 +20,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=s#8756&(-33l7zre8@&1bq$)3lkrm$_&2c3dorv(4mr)@hq5o'
+SECRET_KEY = 'km$wdy!l-d#5)0@7*stg%c_fh5rq@91kgg@3!k^f8a$f%c4_$c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
-# django-allauth settings
+
 ACCOUNT_ALLOW_REGISTRATION = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
-# ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_REQUIRED = False
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_ADAPTER = 'connectedwe.users.adapters.AccountAdapter'
-SOCIALACCOUNT_ADAPTER = 'connectedwe.users.adapters.SocialAccountAdapter'
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
 
-# AUTH_USER_MODEL='customuser.CustomUser'
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_NAME = "csrftoken"
 
 # Application definition
 INSTALLED_APPS = [
@@ -48,44 +46,39 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_auth',
-    'corsheaders',
-
-    'drf_yasg',       
     
     'django.contrib.sites',
+    'rest_framework',
+    
+    'rest_framework.authtoken',
+    
+    'api',
+    'corsheaders',
+    'drf_yasg',
+    
+    'rest_auth',
     'allauth',
     'allauth.account',
     'rest_auth.registration',
-    
-    'api',
 ]
 
 SITE_ID = 1
-
 REST_USE_JWT = True
 
-CORS_ORIGIN_ALLOW_ALL = True
-
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
+    'https://lovero-front.run.goorm.io',
 )
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES' : (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
+    )
 }
 
 MIDDLEWARE = [
-   
     # cros origin 
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -154,9 +147,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'ko-kr'
+LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Seoul'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 

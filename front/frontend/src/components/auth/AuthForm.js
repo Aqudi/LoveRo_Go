@@ -13,23 +13,27 @@ const AuthFormBlock = styled.div`
 `;
 
 const StyledInput = styled.input`
-  font-size: 1rem;
-  border: none;
-  border-bottom: 1px solid ${palette.gray[5]};
-  padding-border: 0.5rem;
-  outline: none;
-  width: 100%;
-  &:focus {
+    background-color: white;
+    box-sizing: border-box;
+    padding: 0 10px;
+    opacity: 50%;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 25px;
+    color: black;
+    &:focus {
     color: $oc-teal-7;
     border-bottom: 1px solid ${palette.gray[7]};
-  }
-  & + & {
+    }
+    & + & {
     margin-top: 1rem;
-  }
+    }
 `;
 
 const Footer = styled.div`
-  margin-top: 2rem;
+  margin-top: 1rem;
   text-align: right;
   a {
     color: ${palette.gray[6]};
@@ -53,55 +57,71 @@ const textMap = {
 };
 const ButtonWithMarginTop = styled(Button)`
   margin-top: 1rem;
-  font-family: 'BMEULJIRO';
-  background: gray;
+  background: #2d2d2c;
+    font-size: 12px;
 `;
 
 const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
   const text = textMap[type];
+    
+  const loginError = () => {
+      if(error && type ==='login')
+      return (<ErrorMessage>{error}</ErrorMessage>);
+  };
+  const registerError = () => {
+      if(error && type ==='register')
+      return (<ErrorMessage>{error}</ErrorMessage>);
+  };
   return (
     <AuthFormBlock>
-      <h3>{text}</h3>
       <form onSubmit={onSubmit}>
         <StyledInput
           autoComplete="username"
           name="username"
-          placeholder="아이디"
+          placeholder="ID"
           onChange={onChange}
           value={form.username}
         />
-        <StyledInput
+        {type==='login'&& (
+         <StyledInput
           autoComplete="new-password"
           name="password"
-          placeholder="비밀번호"
+          placeholder="PW"
           type="password"
           onChange={onChange}
           value={form.password}
-        />
+        />)}
         {type === 'register' && (
           <StyledInput
             autoComplete="new-password"
-            name="passwordConfirm"
-            placeholder="비밀번호확인"
+            name="password1"
+            placeholder="PW"
             type="password"
             onChange={onChange}
-            value={form.passwordConfirm}
+            value={form.password1}
           />
         )}
-        {error && <ErrorMessage>{error}</ErrorMessage>}
+        {type === 'register' && (
+          <StyledInput
+            autoComplete="new-password"
+            name="password2"
+            placeholder="PW-Confirm"
+            type="password"
+            onChange={onChange}
+            value={form.password2}
+          />
+        )}
+          {loginError() }
+        {registerError()}
 		<ButtonWithMarginTop cyan fullwidth style = {{marginTop:'1rem'}}>
 			{text}
 		</ButtonWithMarginTop>
-        <Footer>
-          {type === 'login' ? (
-            <Link to="/register">회원가입 </Link>
-          ) : (
-            <Link to="/login"> 로그인 </Link>
-          )}
-        </Footer>
       </form>
+          <Footer></Footer>
     </AuthFormBlock>
   );
 };
 
 export default AuthForm;
+
+

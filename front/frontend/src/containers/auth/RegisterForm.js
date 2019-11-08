@@ -1,19 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeField, initializeForm, register} from '../../modules/auth';
-import AuthForm from '../../components/auth/AuthForm';
-import {check} from '../../modules/user';
+import Register from '../../components/auth/Register';
 import { withRouter } from 'react-router-dom';
-
 
 const RegisterForm = ({history}) => {
 	const [error, setError] = useState(null);
 	const dispatch = useDispatch();
-	const {form, auth, authError, user} = useSelector(({auth, user})=>({
+	const {form, auth, authError} = useSelector(({auth})=>({
 		form: auth.register,
 		auth: auth.auth,
 		authError: auth.authError,
-		user:user.user
 	}));
 	const onChange = e => {
 		const {value, name} = e.target;
@@ -28,18 +25,18 @@ const RegisterForm = ({history}) => {
 	
 	const onSubmit = e => {
 		e.preventDefault();
-		const {username, password, passwordConfirm } = form;
-		if([username, password, passwordConfirm].includes('')){
+		const {username, password1, password2 } = form;
+		if([username, password1, password2].includes('')){
 			setError('빈칸을 모두 입력해주세요');
 			return;
 		}
-		if(password !== passwordConfirm){
+		if(password1 !== password2){
 			setError('비밀번호가 일치하지 않습니다.');
-			changeField({form: 'register' , key:'password', value:''});
-			changeField({form: 'register' , key:'passwordConfirm', value:''});			
+			changeField({form: 'register' , key:'password1', value:''});
+			changeField({form: 'register' , key:'password2', value:''});	
 			return;
 		}
-		dispatch(register({username, password}));
+		dispatch(register({username, password1, password2}));
 	};
 	
 	useEffect(()=>{
@@ -60,25 +57,12 @@ const RegisterForm = ({history}) => {
 		if(auth){
 			console.log('회원가입 성공');
 			console.log(auth);
-			dispatch(check());
+            history.push('/');
 		}
-	},[auth, authError, dispatch]);
-	
-	
-	useEffect(()=>{
-		if(user){
-			console.log('check api 성공');
-			console.log(user);
-			history.push('/');
-			try{
-				localStorage.setItem('user', JSON.stringify(user));
-			}catch(e){
-				console.log('loacalStrorage is not working');
-			}
-		}
-	},[history, user]);
-	return (
-		<AuthForm
+	},[auth, authError,history]);
+
+    return (
+		<Register
 			type= "register"
 			form ={form}
 			onChange = {onChange}

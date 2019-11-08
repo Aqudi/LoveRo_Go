@@ -14,7 +14,6 @@ const AuthTemplateBlock = styled.div`
   flex-direction: low;
   justify-content: center;
   align-items: center;
-  font-family: 'BMEULJIRO';
 `;
 
 const WhiteBox = styled.div`
@@ -36,7 +35,7 @@ const AuthTemplate = ({ children }) => {
     <AuthTemplateBlock>
       <WhiteBox>
         <div className="logo-area">
-          <Link to="/">login/register</Link>
+          회원가입
         </div>
         {children}
       </WhiteBox>

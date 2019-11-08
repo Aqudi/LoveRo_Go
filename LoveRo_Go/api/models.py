@@ -1,12 +1,15 @@
 from django.db import models
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from drf_extra_fields.fields import Base64ImageField
 
-User = get_user_model()
-
+    
 class Article(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(null=True, blank=True)
     content = models.TextField()
-    owner = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    owner = models.ForeignKey(User, default=1, on_delete=models.SET_DEFAULT)
+    
+    created_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
 

@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeField, initializeForm, login } from '../../modules/auth';
+import { changeField, initializeForm, login, save } from '../../modules/auth';
 import AuthForm from '../../components/auth/AuthForm';
-import { check } from '../../modules/user';
 import { withRouter } from 'react-router-dom';
+import client from '../../lib/api/client';
 
 const LoginForm = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
+  const { form, auth, authError, checkUser } = useSelector(({ auth , checkUser }) => ({
     form: auth.login,
     auth: auth.auth,
     authError: auth.authError,
-    user: user.user,
+    checkUser: auth.checkUser,
   }));
+
   const onChange = e => {
     const { value, name } = e.target;
     dispatch(
@@ -28,7 +29,6 @@ const LoginForm = ({ history }) => {
   const onSubmit = e => {
     e.preventDefault();
     const { username, password } = form;
-	history.push("/");
     dispatch(login({ username, password }));
   };
 
@@ -38,31 +38,31 @@ const LoginForm = ({ history }) => {
   }, [dispatch]);
 
   useEffect(() => {
-	  console.log(auth, authError);
+	  // console.log(auth, authError);
     if (authError) {
       console.log('오류발생');
       console.log(authError);
-      setError('로그인 실패');
+      setError('로그인 실패: Id, Pw 를 확인해 주세요.');
       return;
     }
     if (auth) {
-      console.log('로그인 성공');
-      dispatch(check());
-    }
-  }, [auth, authError, dispatch]);
+      console.log('로그인 성공', auth.user.username);
+      const checkUser = {
+          username : auth.user.username,
+          token :auth.token,
+      } 
+      dispatch(save(checkUser));
+      try{
+          localStorage.setItem('user',auth.user.username);
+          localStorage.setItem('user-token',auth.token);
+           client.defaults.headers.common['Authorization']='JWT '+localStorage.getItem('user-token');
 
-  useEffect(() => {
-	  console.log(user);
-    if (user) {
-      console.log(user.username);
-      // history.push('/'); ///list${user.username}
-      try {
-        localStorage.setItem('user', JSON.stringify(user));
-      } catch (e) {
-        console.log('localStorage is not working');
+      } catch(e){
+          console.log('localStorage is not working');
       }
+      history.push('/main');
     }
-  }, [history, user]);
+  }, [auth, authError, history, dispatch, checkUser]);
 
   return (
     <AuthForm
