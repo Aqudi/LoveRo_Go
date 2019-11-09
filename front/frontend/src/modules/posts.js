@@ -15,23 +15,27 @@ export const listPosts = createAction(LIST_POSTS, ({page}) => ({
   page,
 }));
 
-const listPostSage = createRequestSaga(LIST_POSTS, postsAPI.listPosts);
+const listPostsSage = createRequestSaga(LIST_POSTS, postsAPI.listPosts);
 export function* postsSaga() {
-  yield takeLatest(LIST_POSTS, listPostSage);
+  yield takeLatest(LIST_POSTS, listPostsSage);
 }
 
 const initialState = {
   posts: null,
   error: null,
   lastPage: 1,
+  nextPage: null,
+  prevPage: null,
 };
 
 const posts = handleActions(
   {
-    [LIST_POSTS_SUCCESS]: (state, { payload: posts, meta: response }) => ({
+    [LIST_POSTS_SUCCESS]: (state, { payload: data, meta: response }) => ({
       ...state,
-      posts,
-      lastPage: parseInt(response.headers['last-page'], 10),
+      posts:data.results,
+      // lastPage: parseInt(data.count, 10)/8,
+      // nextPage: data.next,
+      // prevPage: data.previous,
     }),
     [LIST_POSTS_FAILURE]: (state, { payload: error }) => ({
       ...state,

@@ -3,72 +3,78 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 import { Link } from 'react-router-dom';
 
-const PostListBlock = styled.div`
-  margin-top: 3rem;
+const Bottom_Wrapper = styled.div`
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
 `;
 
-const WritePostButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 3rem;
+const White_Wrapper = styled.div`
+    width: 235px;
+    margin: 5px;
+    height: 300px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.26);
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 10px;
 `;
 
-const PostItemBlock = styled.div`
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-
-  /*맨 위 포스트는 padding top 없음 */
-  &:first-child {
-    padding-top: 0;
-  }
-  & + & {
-    border-top: 1px solid ${palette.gray[2]};
-  }
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 0;
-    margin-top: 0;
-    &:hober {
-      color: ${palette.gray[6]};
-    }
-  }
-  p {
-    margin-top: 2rem;
-  }
+const Image_Wrapper = styled.div`
+    position: relative;
+    width: 100%;
+    height: 150px;
+    background-color: #e9ecef;
+    border-radius: 12px;
 `;
 
 const PostItem = ({ post }) => {
   const { created_at, updated_at, title, content, image , id } = post;
+    
   console.log(post);
   return (
-    <PostItemBlock>
-      <h2>
-        <Link to={`/main/${id}`}>{title}</Link>
-      </h2>
-         생성일: {new Date(created_at)} 
-         수정일: {new Date(updated_at)} 
-      <p> {content} </p>
-    </PostItemBlock>
+    <White_Wrapper>
+        <Image_Wrapper>
+            <img className="main_image" src={image} alt="image_test" />
+        </Image_Wrapper>
+        <div className="main_title">#{title}</div>
+        <div className="main_content">{content}</div>
+    </White_Wrapper>
   );
 };
 
-const PostList = ({ posts, loading, error }) => {
+const PostList = ({ posts, loading, error, history }) => {
+    
+    console.log(posts);
+  // const clickPost = (id) => {
+  //     history.push(`/main/${id}`);
+  // };
   //에러 발생시
   if (error) {
     console.log(error);
-    return <PostListBlock> 에러가 발생 했습니다. </PostListBlock>;
+    return <Bottom_Wrapper> 에러가 발생 했습니다. </Bottom_Wrapper>;
   }
   return (
-    <PostListBlock>
+    <Bottom_Wrapper>
       {!loading && posts && (
-        <div>
+        <div>   
           {posts.map(post => (
-            <PostItem post={post} key={post._id} />
+            <PostItem post={post} key={post.id} />
           ))}
         </div>
-      )}
-    </PostListBlock>
+      )}          
+          {/*<White_Wrapper>
+        <Image_Wrapper>
+            <img className="main_image" 
+            src="http://item.ssgcdn.com/16/88/15/item/1000021158816_i1_202.jpg"             alt="image_test" />
+        </Image_Wrapper>
+             <div className="main_title">#1 따뜻한 어느 날 오후</div>
+             <div className="main_content">날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내년 총선과 관계된 모든 전술·전략 준비에 시동을 건 셈이다 </div>
+    </White_Wrapper> */}
+    </Bottom_Wrapper>
   );
 };
 

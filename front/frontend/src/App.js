@@ -3,15 +3,15 @@ import {Route} from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import WritePage from './pages/WritePage';
-// import PostPage from './pages/PostPage';
+// import PostModalPage from './pages/PostModalPage';
 
 function App() {
   return (
     <>
 	  <Route component={LoginPage} path = "/" exact/>
-	  <Route component={MainPage} path="/main" />
+	  <Route component={MainPage} exact path="/main" />
       <Route component={WritePage} path="/write" />
-      {/*<Route component={PostPage} path="/main/:postId" /> */}
+      {/*<Route component={PostModalPage} path="/main/:postId" /> */}
     </>
   );
 }

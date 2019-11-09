@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-// import qs from 'qs';
+import qs from 'qs';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PostList from '../../components/posts/PostList';
@@ -15,10 +15,10 @@ const PostListContainer = ({ location }) => {
     }),
   );
   useEffect(() => {
-    // const { username, page } = qs.parse(location.search, {
-    //   ignoreQueryPrefix: true,
-    // });
-    dispatch(listPosts({ page }));
+    const { page } = qs.parse(location.search, {
+      ignoreQueryPrefix: true,
+    });
+    dispatch(listPosts({page}));
   }, [dispatch, location.search]);
 
   return (

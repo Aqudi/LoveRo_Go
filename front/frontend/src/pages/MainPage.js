@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Button from '../components/common/Button';
 import test_img from '../images/test_image.PNG';
 import PersonalContainer from '../containers/auth/PersonalContainer';
+import PostListContainer from '../containers/posts/PostListContainer';
+import PaginationContainer from '../containers/posts/PaginationContainer';
 
 const Wrapper = styled.div`
     position: absolute;
@@ -19,7 +21,7 @@ const Content_Wrapper = styled.div`
     width: 100%;
     padding: 40px;
     box-sizing: border-box;
- background-color: #faf0c8;
+    background-color: #faf0c8;
 `;
 
 const Header_Wrapper = styled.div`
@@ -84,41 +86,8 @@ const MainPage = ({history}) => {
                     <button className="button_black" onClick={Go_Write}>
                         일기쓰기</button>
                 </Header_Wrapper>
-                <Bottom_Wrapper>
-                    <White_Wrapper>
-                        <Image_Wrapper>
-                            <img className="main_image" src="http://item.ssgcdn.com/16/88/15/item/1000021158816_i1_202.jpg"                                               alt="image_test"></img>
-                        </Image_Wrapper>
-                            <div className="main_title">#1 따뜻한 어느 날 오후</div>
-                            <div className="main_content">날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내년 총선과 관계된 모든 전술·전략 준비에 시동을 건 셈이다 날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내 </div>
-                    </White_Wrapper>
-                    <White_Wrapper>
-                         <Image_Wrapper></Image_Wrapper>
-                            <div className="main_title">#1 따뜻한 어느 날 오후</div>
-                            <div className="main_content">날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내년 총선과 관계된 모든 전술·전략 준비에 시동을 건 셈이다 </div>
-                    </White_Wrapper>
-                    <White_Wrapper>
-                         <Image_Wrapper></Image_Wrapper>
-                            <div className="main_title">#1 따뜻한 어느 날 오후</div>
-                            <div className="main_content">날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내년 총선과 관계된 모든 전술·전략 준비에 시동을 건 셈이다 </div>
-                    </White_Wrapper>
-                    <White_Wrapper>
-                         <Image_Wrapper></Image_Wrapper>
-                         <div className="main_title">#1 따뜻한 어느 날 오후</div>
-                            <div className="main_content">날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내년 총선과 관계된 모든 전술·전략 준비에 시동을 건 셈이다 날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내 </div>
-                    </White_Wrapper>
-                     <White_Wrapper>
-                          <Image_Wrapper></Image_Wrapper>
-                          <div className="main_title">#1 따뜻한 어느 날 오후</div>
-                            <div className="main_content">날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내년 총선과 관계된 모든 전술·전략 준비에 시동을 건 셈이다 날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내 </div>
-                    </White_Wrapper>
-                     <White_Wrapper>
-                          <Image_Wrapper></Image_Wrapper>
-                          <div className="main_title">#1 따뜻한 어느 날 오후</div>
-                            <div className="main_content">날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내년 총선과 관계된 모든 전술·전략 준비에 시동을 건 셈이다 날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내 </div>
-                    </White_Wrapper>
-                    
-                </Bottom_Wrapper>
+                <PostListContainer />
+                <PaginationContainer />
             </Content_Wrapper>
         </Wrapper>
 	);
