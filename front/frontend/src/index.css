@@ -1,6 +1,7 @@
 @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
 @import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
 
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "NanumSquare", "Segoe UI", "Roboto", "Oxygen",
@@ -31,6 +32,10 @@ h3 {
 }
 a{
     text-decoration: none;
+}
+button{
+    margin: 0;
+    padding: 0;
 }
 
 .button_black {

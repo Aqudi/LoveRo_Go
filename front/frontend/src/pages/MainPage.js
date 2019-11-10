@@ -1,10 +1,14 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import Button from '../components/common/Button';
 import test_img from '../images/test_image.PNG';
 import PersonalContainer from '../containers/auth/PersonalContainer';
 import PostListContainer from '../containers/posts/PostListContainer';
 import PaginationContainer from '../containers/posts/PaginationContainer';
+import PostViewerContainer from '../containers/post/PostViewerContainer';
+
+import { useDispatch, useSelector } from 'react-redux';
+import {viewModal} from '../modules/post';
 
 const Wrapper = styled.div`
     position: absolute;
@@ -74,6 +78,17 @@ const MainPage = ({history}) => {
     const Go_Write= ()=>{
         history.push('/write');
     }
+    const dispatch = useDispatch();
+    const {view, modalId} = useSelector(
+        ({ post }) => ({
+          view: post.view,
+          modalId: post.modalId,
+        }),
+     );
+    console.log(view, modalId.id);
+    const onClose = () => {
+        dispatch(viewModal({view:false}));
+    }
 	return(
         <Wrapper>
             <Content_Wrapper>
@@ -88,6 +103,7 @@ const MainPage = ({history}) => {
                 </Header_Wrapper>
                 <PostListContainer />
                 <PaginationContainer />
+                {view===true && (<PostViewerContainer postId={modalId.id} modal={view} onClose={onClose}/>)}
             </Content_Wrapper>
         </Wrapper>
 	);

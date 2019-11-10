@@ -39,7 +39,7 @@ const WriteActionButtonsContainer = ({ history }) => {
   useEffect(() => {
     if (post) {
       const { id } = post;
-      history.push(`/main/${id}`);
+      history.push('/main');
     }
     if (postError) {
       console.log(postError);

@@ -11,9 +11,13 @@ const [
   READ_POST_FAILURE,
 ] = createRequestActionTypes('post/READ_POST');
 const UNLOAD_POST = 'post/UNLOAD_POST'; //포스트 페이지에서 벗어날 때 데이터 비우기
+const MODAL = 'post/MODAL';
+const MODAL_ID = 'post/MODAL_ID';
 
 export const readPost = createAction(READ_POST, id => id);
 export const unloadPost = createAction(UNLOAD_POST);
+export const viewModal = createAction(MODAL, ({view,value}) =>({view, value}));
+export const viewId = createAction(MODAL_ID, ({modalId,id}) =>({modalId, id}));
 
 const readPostSaga = createRequestSaga(READ_POST, postAPI.readPost);
 export function* postSaga() {
@@ -23,6 +27,8 @@ export function* postSaga() {
 const initialState = {
   post: null,
   error: null,
+  view: false,
+  modalId: 1,
 };
 
 const post = handleActions(
@@ -36,6 +42,14 @@ const post = handleActions(
       error,
     }),
     [UNLOAD_POST]: () => initialState,
+    [MODAL]: (state, {payload: {view, value}}) => ({
+        ...state,
+        view:value,
+    }),
+    [MODAL_ID]:(state, {payload:{modalId,id}}) => ({
+        ...state,
+        modalId:id,
+    })
   },
   initialState,
 );

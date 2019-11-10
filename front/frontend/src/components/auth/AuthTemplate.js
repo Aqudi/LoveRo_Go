@@ -22,12 +22,14 @@ const WhiteBox = styled.div`
     padding-bottom: 2rem;
     text-align: center;
     letter-spacing: 3px;
+    font-size: 18px;
+    font-weight: bold;
   }
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
   padding: 2rem;
   width: 400px;
-  background: white;
-  border-radius: 2px;
+  background: rbga(255,255,255,0.9);
+  border-radius: 24px;
 `;
 
 const AuthTemplate = ({ children }) => {

@@ -1,7 +1,10 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import Button from '../common/Button';
 import { Link } from 'react-router-dom';
+import PostViewerContainer from '../../containers/post/PostViewerContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import {viewModal, viewId} from '../../modules/post';
 
 const Bottom_Wrapper = styled.div`
     position: relative;
@@ -31,49 +34,58 @@ const Image_Wrapper = styled.div`
     border-radius: 12px;
 `;
 
-const PostItem = ({ post }) => {
+const PostItem = ({ post, onClick }) => {
   const { created_at, updated_at, title, content, image , id } = post;
+  console.log(id);
     
-  console.log(post);
+  const dispatch = useDispatch();
+  const {view, modalId} = useSelector(
+    ({ post }) => ({
+      view: post.view,
+      modalId: post.modalId,
+    }),
+  );  
+    
+  // const [modal, setModal] = useState(false);
+  const click = id => {
+      var value = true;
+      dispatch(viewId({modalId, id}));
+      dispatch(viewModal({view,value}));
+        // setModal(true);
+      // console.log(id, modal);
+  };
+  const onClose = () => {
+      const value = false; 
+      dispatch(viewModal({view,value}));
+      // setModal(false);
+  };
   return (
-    <White_Wrapper>
+    <White_Wrapper >
         <Image_Wrapper>
-            <img className="main_image" src={image} alt="image_test" />
+            <img className="main_image" src={image} alt="image_null" />
         </Image_Wrapper>
-        <div className="main_title">#{title}</div>
+        <div className="main_title" onClick= {()=>click({id})} >#{title}</div>
         <div className="main_content">{content}</div>
-    </White_Wrapper>
+      </White_Wrapper>
   );
 };
-
-const PostList = ({ posts, loading, error, history }) => {
-    
-    console.log(posts);
-  // const clickPost = (id) => {
-  //     history.push(`/main/${id}`);
-  // };
-  //에러 발생시
+          // <PostViewerContainer postId={id} modal={modal} onClose={onClose}/>
+const PostList = ({ posts, loading, error }) => {
   if (error) {
     console.log(error);
     return <Bottom_Wrapper> 에러가 발생 했습니다. </Bottom_Wrapper>;
   }
+                             
   return (
     <Bottom_Wrapper>
       {!loading && posts && (
         <div>   
           {posts.map(post => (
             <PostItem post={post} key={post.id} />
-          ))}
+          ))
+          }
         </div>
-      )}          
-          {/*<White_Wrapper>
-        <Image_Wrapper>
-            <img className="main_image" 
-            src="http://item.ssgcdn.com/16/88/15/item/1000021158816_i1_202.jpg"             alt="image_test" />
-        </Image_Wrapper>
-             <div className="main_title">#1 따뜻한 어느 날 오후</div>
-             <div className="main_content">날이 좋은 오늘 우리는 피크닉을 갔다.총선기획단은 내년 총선 캐치프레이즈부터 총선 전략과 공천 방향을 포함해 보수통합 논의까지 숙성시킨뒤 공천관리위원회에 전달할 방침이다. 내년 총선과 관계된 모든 전술·전략 준비에 시동을 건 셈이다 </div>
-    </White_Wrapper> */}
+      )}
     </Bottom_Wrapper>
   );
 };

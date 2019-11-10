@@ -9,13 +9,14 @@ const PaginationContainer = ({ location }) => {
     lastPage: posts.lastPage,
     posts: posts.posts,
     loading: loading['posts/LIST_POSTS'],
-    nextPage: posts.nextPage,
-    prevPage: posts.prevPage,
   }));
+    
   if (!posts || loading) return null;
   const { page = 1 } = qs.parse(location.search, {
     ignoreQueryPrefix: true,
   });
+    // console.log('page!!',parseInt(page, 10));
+
   return (
     <Pagination
       page={parseInt(page, 10)}

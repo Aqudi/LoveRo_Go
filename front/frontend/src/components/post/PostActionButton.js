@@ -6,6 +6,11 @@ import AskRemoveModal from './AskRemoveModal';
 const PostActionButtonBlock = styled.div`
     margin: 1rem;
 `;
+
+const StyledButton = styled(Button)`
+    margin: 2px;
+    width:40%;
+`;
 const PostActionButton = ({onRemove}) => {
     const [modal, setModal] = useState(false);
     
@@ -23,7 +28,7 @@ const PostActionButton = ({onRemove}) => {
     return(
         <>
         <PostActionButtonBlock>
-            <Button onClick ={onRemoveClick}>삭제</Button>
+            <StyledButton onClick ={onRemoveClick}>삭제</StyledButton>
         </PostActionButtonBlock>
         <AskRemoveModal
             visible={modal}
@@ -33,3 +38,5 @@ const PostActionButton = ({onRemove}) => {
         </>
     );
 };
+
+export default PostActionButton;

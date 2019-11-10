@@ -14,28 +14,20 @@ const PaginationBlock = styled.div`
 const PageNumber = styled.div``;
 
 const buildLink = ({page}) => {
-  const query = qs.stringify({ page });
-  return `/?${query}`;
+    const queryString = qs.stringify({
+        page
+    });
+    return `/main/?${queryString}`;
 };
-// const goPage = ({url}) => {
-//     const query = url.split('/')[4];
-//     return query;
-// };
-const Pagination = ({ page,lastPage, prevPage, nextPage }) => {
-  // const lastPage = (nextPage) =>{
-  //     if(goPage({nextPage})===null){
-  //         return lastPage;
-  //     }
-  //     return lastPage+1;
-  // }
+
+const Pagination = ({ page,lastPage }) => {
+    console.log('pagenation', page, lastPage);
   return (
     <PaginationBlock>
     <Button
         disabled={page === 1}
-        to={page === 1 ? undefined : buildLink({ page: page - 1 })}
+        to={page === 1 ? undefined : buildLink({page:page - 1} )}
       >
-        {/*<Button disabled = {page ===1}
-          to={page===1 ? undefined : goPage({prevPage}) } >*/}
         이전
       </Button>
       <PageNumber>{page}</PageNumber>
@@ -44,11 +36,9 @@ const Pagination = ({ page,lastPage, prevPage, nextPage }) => {
         to={
           page === lastPage
             ? undefined
-            : buildLink({page: page + 1 })
+            : buildLink({page:page + 1})
         }
       >
-   {/* <Button disabled = {page===lastPage}
-        to = {page ===lastPage ? undefined : goPage({nextPage})}>*/}
         다음
       </Button>
     </PaginationBlock>

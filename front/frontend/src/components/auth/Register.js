@@ -79,7 +79,7 @@ const Register = ({ type, form, onChange, onSubmit, error }) => {
           <StyledInput
             autoComplete="new-password"
             name="password2"
-            placeholder="PW-Confirm"
+            placeholder="PW-CONFIRM"
             type="password"
             onChange={onChange}
             value={form.password2}

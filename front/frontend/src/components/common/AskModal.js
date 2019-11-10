@@ -13,6 +13,7 @@ const Fullscreen = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
+    z-index:999;
 `;
 
 const AskModalBlock = styled.div`
@@ -53,6 +54,7 @@ const AskModal = ({
     if(!visible) return null;
     return (
         <Fullscreen>
+            <AskModalBlock>
             <h2>{title}</h2>
             <p>{description}</p>
             <div className="buttons">
@@ -61,6 +63,7 @@ const AskModal = ({
                     {confirmText}
                 </StyledButton>
             </div>
+                </AskModalBlock>
         </Fullscreen>
     );
 };

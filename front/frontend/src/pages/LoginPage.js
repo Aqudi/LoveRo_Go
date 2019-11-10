@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
-import main_img from '../images/img_main.jpg';
+import main_img from '../images/img_main.png';
 import LoginForm from '../containers/auth/LoginForm';
 import RegisterModal from './RegisterModal';
 import ModalPortal from './ModalPortal';
@@ -40,9 +40,18 @@ const Input_Wrapper = styled.div`
    text-align: center;
 `;
 const ButtonWithMarginTop = styled(Button)`
-  background: #2d2d2c;
-  font-size: 12px;
+    background: transparent;
+    &:hover {
+        background: transparent;
+    }
+    text-align: end;
+    color: black;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0;
 `;
+
+
 const LoginPage = () => {
    const [modalShow, setModalShow] = useState(false);
    function open() {
@@ -60,8 +69,7 @@ const LoginPage = () => {
                </Header>
                <Input_Wrapper>
                    <LoginForm></LoginForm>
-                   <ButtonWithMarginTop onClick={open}>회원가입
-                   </ButtonWithMarginTop>
+                   <ButtonWithMarginTop onClick={open}>회원가입</ButtonWithMarginTop>
                    {modalShow===true && (
                      <ModalPortal>
                        <RegisterModal onClose={close} />

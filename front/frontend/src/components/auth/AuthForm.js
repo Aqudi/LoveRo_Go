@@ -45,10 +45,12 @@ const Footer = styled.div`
 `;
 //에러처리
 const ErrorMessage = styled.div`
-  color: red;
-  text-align: center;
-  font-size: 0.875rem;
-  margin-top: 1rem;
+  color: #ff4949;
+  text-align: left;
+  font-size: 11px;
+  margin: 6px 0 0 4px;
+  letter-spacing: -0.33px;
+  font-weight: bold;
 `;
 
 const textMap = {
